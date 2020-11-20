@@ -1,18 +1,46 @@
 import React from 'react'
-import Kefir from 'kefir'
+import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles';
 
-import HomeModule from './home.module.js'
+import styles from './home.module.scss'
 
-import FromStream from "../fromStream/fromStream"
+import Header from '../header/header'
+import BrazilMap from '../brazilMap/brazilMap'
 
-const stream = Kefir.interval(1000).map(() => new Date().toString());
+const CustomSwitch = withStyles({
+  switchBase: {
+    '&$checked': {
+      color: "#F9AA33",
+    },
+    '&$checked + $track': {
+      backgroundColor: "#F9AA33",
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
 
-const Home = () => (
-  <FromStream stream={stream}>
-    {(data) =>
-      <HomeModule data={data} />
-    }
-  </FromStream>
-);
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { mapView: false };
+  }
 
-export default Home;
+  render() {
+    return (
+      <div className={styles.home}>
+        <Header text="COVID_WATCHER" />
+        {this.state.mapView ? <BrazilMap /> : <span>eai</span>}
+        <div className={styles.footer}>
+          <CustomSwitch
+            onChange={
+              (event) =>
+                this.setState({ mapView: event.target.checked })
+            }
+          />
+          <span>Ver situação por estado</span>
+        </div>
+      </div>
+    )
+  }
+}

@@ -1,4 +1,13 @@
 .home {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  color: white;
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #344955;
 }
