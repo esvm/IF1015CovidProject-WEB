@@ -30,16 +30,18 @@ export default class Home extends React.Component {
     return (
       <div className={styles.home}>
         <Header text="COVID_WATCHER" />
-        {this.state.mapView ? <BrazilMap /> : <span>eai</span>}
-        <div className={styles.footer}>
-          <CustomSwitch
-            onChange={
-              (event) =>
-                this.setState({ mapView: event.target.checked })
-            }
-          />
-          <span>Ver situação por estado</span>
+        <div className={styles.home__content}>
+          {this.state.mapView ? <BrazilMap /> : <span>eai</span>}
         </div>
+        <div className={styles.home__footer}>
+            <CustomSwitch
+              onChange={
+                (event) =>
+                  this.setState({ mapView: event.target.checked })
+              }
+            />
+            <span>Ver situação por estado</span>
+          </div>
       </div>
     )
   }
