@@ -1,0 +1,9 @@
+.sidebar {
+  background-color: #232F34;
+  padding: 0 5px;
+  display: grid;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0; /* required */
+  height: 100vh;
+}
