@@ -1,6 +1,9 @@
 import React from 'react'
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles'
 
 import styles from './stateStats.module.scss'
+
 
 const renderData = ({ cases, suspects, deaths }) =>
     <div className={styles.stateStats__data}>
@@ -9,11 +12,10 @@ const renderData = ({ cases, suspects, deaths }) =>
         <span>Mortes:</span> <span>{deaths}</span>
     </div>
 
-
 export default class StateStats extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { isOpen: false, selectedDate: '2020-02-01' };
     }
 
     componentDidMount() {
@@ -28,7 +30,6 @@ export default class StateStats extends React.Component {
 
     getData() {
         this.setState({ loading: true });
-        console.log(this.props.district);
 
         fetch(`https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/${this.props.district.toLowerCase()}`, {
             "method": "GET"
@@ -39,18 +40,27 @@ export default class StateStats extends React.Component {
     }
 
     render() {
-        const { data, loading } = this.state
+        const { data, loading, isOpen, selectedDate } = this.state
         return (
             <div className={styles.stateStats}>
                 {loading || !data ?
                     (<span>Loading...</span>) :
-                    (<>
+                    (<div className={styles.stateStats__content}>
                         <h2>{data.state}</h2>
-                        {renderData(data)}
-                        <p className={styles.stateStats__dateAlert}>
-                            Ver em outros períodos de tempo
-                        </p>
-                    </>)
+                        {!isOpen && renderData(data)}
+                        <form className={styles.stateStats__form}>
+                            <TextField
+                                label="Dados a partir do dia:"
+                                type="date"
+                                className={styles.stateStats__form__date}
+                                defaultValue={selectedDate}
+                                onChange={console.log}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                            />
+                        </form>
+                    </div>)
                 }
             </div>
         )

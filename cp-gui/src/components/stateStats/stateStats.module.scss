@@ -7,17 +7,48 @@
     margin-top: 0 !important;
   }
 
-  &__dateAlert {
-      font-size: 12px;
+  &__data {
+    display: grid;
+    grid-gap: 6px;
+    grid-template-columns: 1fr 1fr;
+
+    :nth-child(even) {
+      text-align: end;
+    }
   }
 
-  &__data{
-      display: grid;
-      grid-gap: 6px;
-      grid-template-columns: 1fr 1fr;
+  &__form {
+    margin-top: 12px;
+    width: 100%;
 
-      :nth-child(even) {
-        text-align: end;
+    &__date {
+      color: white;
+
+      input{
+        max-width: min-content;
       }
+
+      label,
+      input,
+      button,
+      ::before,
+      ::after {
+        color: white !important;
+        border-color: white !important;
+        font-size: 12px;
+      }
+
+      label{
+        font-size: 16px;
+        white-space: nowrap;
+        text-overflow: show;
+      }
+
+      input[type='date']::-webkit-inner-spin-button,
+      input[type='date']::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        height: 16px;
+      }
+    }
   }
 }
