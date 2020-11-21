@@ -31,14 +31,15 @@ export class WrappedSocketManager extends React.Component {
 
     connection.onmessage = e => {
       const data = JSON.parse(e.data);
-      const { countriesDataJSON, brazilData: brazilDataJSON } = data;
+      const { countriesData: countriesDataJSON, brazilData: brazilDataJSON } = data;
       const statesData = new Map();
+      const countriesData = new Map();
 
+      _.forEach(JSON.parse(countriesDataJSON).data, item => countriesData.set(item.country, item));
       _.forEach(JSON.parse(brazilDataJSON).data, item => statesData.set(item.uf, item));
 
-      console.log({ data, brazilDataJSON, statesData })
-
-      this.setState({ statesData })
+      console.log({statesData, countriesData, SP: _.get(statesData, 'SP', null)})
+      this.setState({ statesData, countriesData })
     };
   }
 

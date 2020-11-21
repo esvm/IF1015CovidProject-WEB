@@ -6,7 +6,7 @@ import styles from './home.module.scss'
 
 import Header from '../header/header'
 import BrazilMap from '../brazilMap/brazilMap'
-import { SocketManager } from '../../contexts/socketManager'
+import { SocketManager } from '../../contexts/generalContext'
 
 const CustomSwitch = withStyles({
   switchBase: {
