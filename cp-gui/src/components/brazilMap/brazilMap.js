@@ -4,6 +4,8 @@ import { MapBrazil } from 'react-brazil-map'
 
 import styles from './brazilMap.module.scss'
 
+import StateStats from '../stateStats/stateStats'
+
 export default class BrazilMap extends React.Component {
     constructor(props) {
         super(props);
@@ -11,15 +13,19 @@ export default class BrazilMap extends React.Component {
     }
 
     render() {
+        const { district } = this.state
+
         return (
             <SizeMe>
                 {({ size }) =>
-                    <div className={styles.brazilMap}>
+                    <div className={district ? styles.brazilMap : styles.brazilMapEntire}>
                         <MapBrazil
-                            width={size.width/3}
+                            width={district ? size.width / 3 - 10 : size.width}
                             fill="#F9AA33"
-                            onChange={district => this.setState({ district })}
+                            onChange={newDistrict => this.setState({ district: newDistrict })}
                         />
+                        {this.state.district &&
+                            <StateStats district={district} />}
                     </div>
                 }
             </SizeMe>

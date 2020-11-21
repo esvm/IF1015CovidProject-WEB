@@ -1,0 +1,23 @@
+.stateStats {
+  padding-left: 20px;
+  color: white;
+  height: 100%;
+
+  h2 {
+    margin-top: 0 !important;
+  }
+
+  &__dateAlert {
+      font-size: 12px;
+  }
+
+  &__data{
+      display: grid;
+      grid-gap: 6px;
+      grid-template-columns: 1fr 1fr;
+
+      :nth-child(even) {
+        text-align: end;
+      }
+  }
+}
