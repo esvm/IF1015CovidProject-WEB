@@ -6,6 +6,7 @@ import styles from './home.module.scss'
 
 import Header from '../header/header'
 import BrazilMap from '../brazilMap/brazilMap'
+import { SocketManager } from '../../contexts/socketManager'
 
 const CustomSwitch = withStyles({
   switchBase: {
@@ -28,12 +29,13 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div className={styles.home}>
-        <Header text="COVID_WATCHER" />
-        <div className={styles.home__content}>
-          {this.state.mapView ? <BrazilMap /> : <span>eai</span>}
-        </div>
-        <div className={styles.home__footer}>
+      <SocketManager>
+        <div className={styles.home}>
+          <Header text="COVID_WATCHER" />
+          <div className={styles.home__content}>
+            {this.state.mapView ? <BrazilMap /> : <span>eai</span>}
+          </div>
+          <div className={styles.home__footer}>
             <CustomSwitch
               onChange={
                 (event) =>
@@ -42,7 +44,8 @@ export default class Home extends React.Component {
             />
             <span>Ver situação por estado</span>
           </div>
-      </div>
+        </div>
+      </SocketManager>
     )
   }
 }
