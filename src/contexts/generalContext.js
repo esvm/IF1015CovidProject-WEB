@@ -35,8 +35,8 @@ export class WrappedSocketManager extends React.Component {
       const statesData = new Map();
       const countriesData = new Map();
 
-      _.forEach(JSON.parse(countriesDataJSON).data, item => countriesData.set(item.country, item));
-      _.forEach(JSON.parse(brazilDataJSON).data, item => statesData.set(item.uf, item));
+      _.forEach(countriesDataJSON.data, item => countriesData.set(item.country, item));
+      _.forEach(brazilDataJSON.data, item => statesData.set(item.uf, item));
 
       console.log({statesData, countriesData, SP: _.get(statesData, 'SP', null)})
       this.setState({ statesData, countriesData })
