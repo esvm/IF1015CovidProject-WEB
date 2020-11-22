@@ -37,9 +37,7 @@ export default class BrazilStatsComponent extends React.Component {
                             />
 
                             {usingAPI &&
-                                <button onClick={returnToContext}>
-                                    <FaTimes />
-                                </button>
+                                <FaTimes onClick={returnToContext} className={styles.brazilStats__clearDateButton}/>
                             }
                         </form>
                     </div>)

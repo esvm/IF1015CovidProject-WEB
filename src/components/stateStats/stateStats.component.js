@@ -30,9 +30,7 @@ export default class StateStatsComponent extends React.Component {
                 />
 
                 {usingAPI &&
-                    <button onClick={returnToContext}>
-                        <FaTimes />
-                    </button>
+                    <FaTimes onClick={returnToContext} className={styles.stateStats__clearDateButton}/>
                 }
             </form>
 

@@ -24,6 +24,12 @@
     cursor: pointer;
   }
 
+  &__clearDateButton {
+    margin: 8px;
+    color: white;
+    cursor: pointer;
+  }
+
   &__data {
     display: grid;
     grid-gap: 6px;
@@ -33,6 +39,8 @@
 
   &__form {
     margin: 12px 0 20px;
+    display: flex;
+    align-items: flex-end;
 
     &__date {
       color: white;
