@@ -6,8 +6,8 @@ import styles from './brazilStats.module.scss'
 
 const renderData = ({ cases, suspects, deaths }) =>
     <div className={styles.brazilStats__data}>
-        <span>Casos confirmados:</span> <span>{cases}</span>
-        <span>Mortes:</span> <span>{deaths}</span>
+        <span>Casos confirmados:</span> <span>{new Intl.NumberFormat().format(cases)}</span>
+        <span>Mortes:</span> <span>{new Intl.NumberFormat().format(deaths)}</span>
     </div>
 
 export default class BrazilStatsComponent extends React.Component {

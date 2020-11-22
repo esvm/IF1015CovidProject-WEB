@@ -7,9 +7,9 @@ import styles from './stateStats.module.scss'
 
 const renderData = ({ cases, suspects, deaths }) =>
     <div className={styles.stateStats__data}>
-        <span>Casos confirmados:</span> <span>{cases}</span>
-        <span>Suspeitas:</span> <span>{suspects}</span>
-        <span>Mortes:</span> <span>{deaths}</span>
+        <span>Casos confirmados:</span> <span>{new Intl.NumberFormat().format(cases)}</span>
+        <span>Suspeitas:</span> <span>{new Intl.NumberFormat().format(suspects)}</span>
+        <span>Mortes:</span> <span>{new Intl.NumberFormat().format(deaths)}</span>
     </div>
 
 export default class StateStatsComponent extends React.Component {
