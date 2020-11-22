@@ -7,14 +7,14 @@ import CountriesTable from '../countriesTable/countriesTable'
 import { SocketManager } from '../../contexts/generalContext'
 
 const Worldwide = () => (
-  <div className={styles.worldwide}>
-    <Header text="Situação Mundial" />
-    <SocketManager>
+  <SocketManager>
+    <div className={styles.worldwide}>
+      <Header text="Situação Mundial" />
       <div className={styles.worldwide__content}>
         <CountriesTable />
       </div>
-    </SocketManager>
-  </div>
+    </div>
+  </SocketManager>
 );
 
 export default Worldwide;
