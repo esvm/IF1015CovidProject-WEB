@@ -19,31 +19,32 @@ export default class StateStatsComponent extends React.Component {
         this.state = { selectedDate: INITIAL_DATE };
     }
 
-    fetchBrazilCasesByDate(e) {
-        var date = e.target.value;
-        this.state = { selectedDate: date };
-        var currentBrazilState = this.props.data.state;
-
-        console.log(date);
-        const apiUrl = `https://if1015covidreports-api.herokuapp.com/reports/brazil/${date}`;
-        fetch(apiUrl)
-            .then((response) => response.json())
-            .then((d) => {
-                var brazilStateData = d.data.find(x => x.state === currentBrazilState);
-                console.log(brazilStateData);
-                this.setState({ useDataFromAPI: true, data: brazilStateData });
-            }).catch(error => console.log('error: ', error))          
-    }
-
-    closePickDate() {
-        this.setState({useDataFromAPI: false, selectedDate: INITIAL_DATE});
-    }
-
     render() {
         const { selectedDate, data: stateData, useDataFromAPI } = this.state
         const { data: propsData } = this.props
         const data = useDataFromAPI ? stateData : propsData
 
+        const fetchBrazilCasesByDate = (e) => {
+            var date = e.target.value;
+            this.setState({ selectedDate: date });
+            var currentBrazilState = this.props.data.state;
+
+            console.log(date);
+            const apiUrl = `https://if1015covidreports-api.herokuapp.com/reports/brazil/${date}`;
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((d) => {
+                    console.log(d);
+                    var brazilStateData = d.find(x => x.state === currentBrazilState);
+                    console.log(brazilStateData);
+                    this.setState({ useDataFromAPI: true, data: brazilStateData });
+                }).catch(error => console.log('error: ', error));
+        }
+
+        const closePickDate = () => {
+            this.setState({useDataFromAPI: false, selectedDate: INITIAL_DATE});
+        }
+        
         return (
             <div className={styles.stateStats}>
                 {!data ?
@@ -58,15 +59,17 @@ export default class StateStatsComponent extends React.Component {
                                 className={styles.stateStats__form__date}
                                 //defaultValue={selectedDate}
                                 value={selectedDate}
-                                onChange={this.fetchBrazilCasesByDate}
+                                onChange={fetchBrazilCasesByDate}
                                 InputLabelProps={{
                                     shrink: true
                                 }}
                             />
 
-                            <button onClick={this.closePickDate}> 
-                                <FaTimes/>
-                            </button>
+                            {useDataFromAPI &&
+                                <button onClick={closePickDate}> 
+                                    <FaTimes/>
+                                </button>
+                            }
                         </form>
                     </div>)
                 }
