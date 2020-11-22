@@ -10,12 +10,15 @@ export default class StateStats extends React.Component {
         this.state = { isOpen: false, selectedDate: '2020-02-01' };
     }
     render() {
-        const { district } = this.props
+        const { district, returnToBrazil } = this.props
 
         return (
             <SocketContext.Consumer>
                 {({ states }) =>
-                    <StateStatsComponent data={states.get(district)} />
+                    <StateStatsComponent
+                        data={states.get(district)}
+                        returnToBrazil={returnToBrazil}
+                    />
                 }
             </SocketContext.Consumer>
         )

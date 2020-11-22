@@ -31,7 +31,7 @@ export default class BrazilPage extends React.Component {
                     </SizeMe>
                 </div>
                 {this.state.district ?
-                    <StateStats district={district} /> :
+                    <StateStats district={district} returnToBrazil={() => this.setState({ district: '' })} /> :
                     <BrazilStats />}
             </div>
         )

@@ -1,5 +1,6 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
+import { BsArrowLeft } from 'react-icons/bs'
 
 import styles from './stateStats.module.scss'
 
@@ -18,7 +19,7 @@ export default class StateStatsComponent extends React.Component {
     }
     render() {
         const { selectedDate } = this.state
-        const { data } = this.props
+        const { data, returnToBrazil } = this.props
 
         return (
             <div className={styles.stateStats}>
@@ -39,6 +40,10 @@ export default class StateStatsComponent extends React.Component {
                                 }}
                             />
                         </form>
+                        <span className={styles.stateStats__return} onClick={returnToBrazil}>
+                            <BsArrowLeft />
+                            Voltar para informações do Brasil
+                        </span>
                     </div>)
                 }
             </div>
