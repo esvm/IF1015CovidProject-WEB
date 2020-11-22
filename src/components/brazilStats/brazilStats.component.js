@@ -13,11 +13,9 @@ const renderData = ({ cases, suspects, deaths }) =>
 export default class BrazilStatsComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selectedDate: '2020-02-01' };
     }
     render() {
-        const { selectedDate } = this.state
-        const { data } = this.props
+        const { selectedDate, data } = this.props
 
         return (
             <div className={styles.brazilStats}>
