@@ -18,7 +18,7 @@ export class WrappedSocketManager extends React.Component {
   constructor(props) {
     super(props);
 
-    const connection = new WebSocket('ws://if1015covidproject-consumers.herokuapp.com/requests');
+    const connection = new WebSocket('wss://if1015covidproject-consumers.herokuapp.com/requests');
 
     connection.onopen = () => {
       console.log('connected to requests server');
