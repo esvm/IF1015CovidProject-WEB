@@ -20,6 +20,8 @@ export class WrappedSocketManager extends React.Component {
   constructor(props) {
     super(props);
 
+    const { useDemo } = props;
+
     const connection = new WebSocket('wss://if1015covidproject-consumers.herokuapp.com/requests');
 
     connection.onopen = () => {
@@ -32,13 +34,14 @@ export class WrappedSocketManager extends React.Component {
 
     connection.onmessage = e => {
       const data = JSON.parse(e.data);
-      const { countriesData, brazilData } = data;
+      const { countriesData } = data;
+      const statesData = useDemo ? data.demoData : data.brazilData
 
-      if (this.state.brazilData !== brazilData) {
+      if (this.state.statesData !== statesData) {
         const states = new Map();
 
-        _.forEach(brazilData, item => states.set(item.uf, item));
-        this.setState({ brazilData, states });
+        _.forEach(statesData, item => states.set(item.uf, item));
+        this.setState({ statesData, states });
       }
 
       if (this.state.countriesData !== countriesData) {
@@ -61,7 +64,6 @@ export class WrappedSocketManager extends React.Component {
   render() {
     const { states, countries } = this.state;
 
-    console.log({ states, countries })
     return (
       <SocketContext.Provider value={{
         states,
