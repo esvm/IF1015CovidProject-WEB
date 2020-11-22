@@ -7,6 +7,7 @@ import { FaTimes } from 'react-icons/fa'
 import styles from './stateStats.module.scss'
 
 import { districts } from '../../utils/data'
+import { formatDate } from '../../utils/dateUtils'
 
 const renderData = ({ cases, suspects, deaths }) =>
     <div className={styles.stateStats__data}>
@@ -18,6 +19,8 @@ const renderData = ({ cases, suspects, deaths }) =>
 export default class StateStatsComponent extends React.Component {
     render() {
         const { data, district, selectedDate, onChangeDate, usingAPI, returnToContext, returnToBrazil } = this.props;
+       
+        console.log({data})
 
         const renderDatePicker = () =>
             <form className={styles.stateStats__form}>
@@ -25,7 +28,7 @@ export default class StateStatsComponent extends React.Component {
                     type="date"
                     label="Dados do dia:"
                     className={styles.stateStats__form__date}
-                    value={selectedDate}
+                    value={formatDate(new Date(_.get(data, "datetime")) || selectedDate)}
                     onChange={onChangeDate}
                     InputLabelProps={{
                         shrink: true
