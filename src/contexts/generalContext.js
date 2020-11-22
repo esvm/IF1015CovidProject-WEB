@@ -11,7 +11,8 @@ export const useWebsocket = () => React.useContext(SocketContext);
 export class WrappedSocketManager extends React.Component {
 
   state = {
-    statesData: {}
+    states: new Map(),
+    countries: new Map()
   }
 
   socket = null;
@@ -31,15 +32,21 @@ export class WrappedSocketManager extends React.Component {
 
     connection.onmessage = e => {
       const data = JSON.parse(e.data);
-      const { countriesData: countriesDataJSON, brazilData: brazilDataJSON } = data;
-      const statesData = new Map();
-      const countriesData = new Map();
+      const { countriesData, brazilData } = data;
 
-      _.forEach(JSON.parse(countriesDataJSON).data, item => countriesData.set(item.country, item));
-      _.forEach(JSON.parse(brazilDataJSON).data, item => statesData.set(item.uf, item));
+      if (this.state.brazilData !== brazilData) {
+        const states = new Map();
 
-      console.log({statesData, countriesData, SP: _.get(statesData, 'SP', null)})
-      this.setState({ statesData, countriesData })
+        _.forEach(brazilData, item => states.set(item.uf, item));
+        this.setState({ brazilData, states });
+      }
+
+      if (this.state.countriesData !== countriesData) {
+        const countries = new Map();
+
+        _.forEach(countriesData, item => countries.set(item.country, item));
+        this.setState({ countriesData, countries });
+      }
     };
   }
 
@@ -52,9 +59,13 @@ export class WrappedSocketManager extends React.Component {
   }
 
   render() {
+    const { states, countries } = this.state;
+
+    console.log({ states, countries })
     return (
       <SocketContext.Provider value={{
-        statesData: this.state.statesData
+        states,
+        countries
       }}>
         {this.props.children}
       </SocketContext.Provider>

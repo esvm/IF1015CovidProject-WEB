@@ -5,6 +5,7 @@ import { MapBrazil } from 'react-brazil-map'
 import styles from './brazilPage.module.scss'
 
 import StateStats from '../stateStats/stateStats'
+import BrazilStats from '../brazilStats/brazilStats'
 
 export default class BrazilPage extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class BrazilPage extends React.Component {
 
         return (
 
-            <div className={district ? styles.brazilPage : styles.brazilPageEntire}>
+            <div className={styles.brazilPage}>
                 <div className={styles.brazilPage__map}>
                     <SizeMe>
                         {({ size }) =>
@@ -29,8 +30,9 @@ export default class BrazilPage extends React.Component {
                         }
                     </SizeMe>
                 </div>
-                {this.state.district &&
-                    <StateStats district={district} />}
+                {this.state.district ?
+                    <StateStats district={district} /> :
+                    <BrazilStats />}
             </div>
         )
     }

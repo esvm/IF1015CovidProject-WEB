@@ -1,10 +1,10 @@
 import React from 'react'
 
-import StateStatsComponent from './stateStats.component'
+import BrazilStatsComponent from './brazilStats.component'
 
 import { SocketContext } from '../../contexts/generalContext'
 
-export default class StateStats extends React.Component {
+export default class BrazilStats extends React.Component {
     constructor(props) {
         super(props);
         this.state = { isOpen: false, selectedDate: '2020-02-01' };
@@ -14,8 +14,8 @@ export default class StateStats extends React.Component {
 
         return (
             <SocketContext.Consumer>
-                {({ states }) =>
-                    <StateStatsComponent data={states.get(district)} />
+                {({ countries }) =>
+                    <BrazilStatsComponent data={countries.get("Brazil")} />
                 }
             </SocketContext.Consumer>
         )
