@@ -3,9 +3,9 @@ import React from 'react'
 import StateStatsComponent from './stateStats.component'
 
 import { SocketContext } from '../../contexts/generalContext'
-import { addDays, formatDate } from '../../utils/dateUtils'
+import { formatDate } from '../../utils/dateUtils'
 
-const INITIAL_DATE = formatDate(addDays(new Date(), -7));
+const INITIAL_DATE = formatDate(new Date());
 
 export default class StateStats extends React.Component {
     constructor(props) {
@@ -48,6 +48,7 @@ export default class StateStats extends React.Component {
                 {({ states }) =>
                     <StateStatsComponent
                         data={useDataFromAPI ? apiData : states.get(district)}
+                        district={district}
                         returnToBrazil={returnToBrazil}
                         selectedDate={selectedDate}
                         onChangeDate={fetchBrazilCasesByDate}
