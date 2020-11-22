@@ -26,10 +26,10 @@ export default class BrazilStatsComponent extends React.Component {
                         {renderData(data)}
                         <form className={styles.brazilStats__form}>
                             <TextField
-                                label="Dados no dia:"
+                                label="Dados do dia:"
                                 type="date"
                                 className={styles.brazilStats__form__date}
-                                defaultValue={selectedDate}
+                                value={selectedDate}
                                 onChange={onChangeData}
                                 InputLabelProps={{
                                     shrink: true

@@ -20,7 +20,7 @@ export default class StateStatsComponent extends React.Component {
             <form className={styles.stateStats__form}>
                 <TextField
                     type="date"
-                    label="Dados coletados a partir de:"
+                    label="Dados do dia:"
                     className={styles.stateStats__form__date}
                     value={selectedDate}
                     onChange={onChangeDate}
