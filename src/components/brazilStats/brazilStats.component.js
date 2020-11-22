@@ -4,9 +4,9 @@ import { FaTimes } from 'react-icons/fa'
 import styles from './brazilStats.module.scss'
 
 
-const renderData = ({ cases, suspects, deaths }) =>
+const renderData = ({ confirmed, suspects, deaths }) =>
     <div className={styles.brazilStats__data}>
-        <span>Casos confirmados:</span> <span>{new Intl.NumberFormat().format(cases)}</span>
+        <span>Casos confirmados:</span> <span>{new Intl.NumberFormat().format(confirmed)}</span>
         <span>Mortes:</span> <span>{new Intl.NumberFormat().format(deaths)}</span>
     </div>
 
@@ -26,7 +26,7 @@ export default class BrazilStatsComponent extends React.Component {
                         {renderData(data)}
                         <form className={styles.brazilStats__form}>
                             <TextField
-                                label="Dados a partir do dia:"
+                                label="Dados no dia:"
                                 type="date"
                                 className={styles.brazilStats__form__date}
                                 defaultValue={selectedDate}

@@ -6,7 +6,7 @@ import { SocketContext } from '../../contexts/generalContext'
 import { addDays, formatDate } from '../../utils/dateUtils'
 import _ from 'lodash'
 
-const INITIAL_DATE = formatDate(addDays(new Date(), -7));
+const INITIAL_DATE = formatDate(new Date());
 
 export default class BrazilStats extends React.Component {
     constructor(props) {
@@ -28,12 +28,12 @@ export default class BrazilStats extends React.Component {
                 .then((d) => {
                     var brasilCasesInDate = {
                         date: date,
-                        cases: 0,
+                        confirmed: 0,
                         deaths: 0,
                         suspects: 0
                     }
                     _.forEach(d.filter(x => x.datetime.split('T')[0] === date), (s) => {
-                        brasilCasesInDate.cases += s.cases;
+                        brasilCasesInDate.confirmed += s.cases;
                         brasilCasesInDate.deaths += s.deaths;
                         brasilCasesInDate.suspects += s.suspects;
                     })
