@@ -2,16 +2,15 @@ import React from "react";
 import _ from "lodash";
 import { connect } from 'react-redux';
 
-export const SocketContext = React.createContext({
-  prices: {}
-});
+export const SocketContext = React.createContext({});
 
 export const useWebsocket = () => React.useContext(SocketContext);
 
 export class WrappedSocketManager extends React.Component {
 
   state = {
-    statesData: {}
+    statesData: new Map(),
+    countriesData: new Map()
   }
 
   socket = null;
@@ -32,14 +31,21 @@ export class WrappedSocketManager extends React.Component {
     connection.onmessage = e => {
       const data = JSON.parse(e.data);
       const { countriesData: countriesDataJSON, brazilData: brazilDataJSON } = data;
-      const statesData = new Map();
-      const countriesData = new Map();
 
-      _.forEach(JSON.parse(countriesDataJSON).data, item => countriesData.set(item.country, item));
-      _.forEach(JSON.parse(brazilDataJSON).data, item => statesData.set(item.uf, item));
+      if (this.state.brazilDataJSON !== brazilDataJSON) {
+        const statesData = new Map();
 
-      console.log({statesData, countriesData, SP: _.get(statesData, 'SP', null)})
-      this.setState({ statesData, countriesData })
+        _.forEach(JSON.parse(brazilDataJSON).data, item => statesData.set(item.uf, item));
+        this.setState({ brazilDataJSON, statesData });
+      }
+
+      if (this.state.countriesDataJSON !== countriesDataJSON) {
+        const countriesData = new Map();
+
+        _.forEach(JSON.parse(countriesDataJSON).data, item => countriesData.set(item.country, item));
+        this.setState({ countriesDataJSON, countriesData });
+      }
+
     };
   }
 
@@ -52,9 +58,14 @@ export class WrappedSocketManager extends React.Component {
   }
 
   render() {
+    const { statesData, countriesData } = this.state;
+
+    console.log({ statesData, countriesData })
+
     return (
       <SocketContext.Provider value={{
-        statesData: this.state.statesData
+        statesData,
+        countriesData
       }}>
         {this.props.children}
       </SocketContext.Provider>
