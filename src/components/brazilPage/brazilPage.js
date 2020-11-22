@@ -24,7 +24,7 @@ export default class BrazilPage extends React.Component {
                         {({ size }) =>
                             <MapBrazil
                                 width={size.width}
-                                fill="#F9AA33"
+                                fill={district ? "#F9AA33" : "rgb(141, 141, 141)"}
                                 onChange={newDistrict => this.setState({ district: newDistrict })}
                             />
                         }
