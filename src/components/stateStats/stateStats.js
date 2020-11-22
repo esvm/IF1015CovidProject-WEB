@@ -32,7 +32,9 @@ export default class StateStats extends React.Component {
             fetch(apiUrl)
                 .then((response) => response.json())
                 .then((d) => {
-                    var brazilStateData = d.find(x => x.uf === this.props.district);
+                    var brazilStateData = d.find(x => x.uf === this.props.district 
+                                                  && x.datetime.split('T')[0] === date);
+                                                  
                     this.setState({ useDataFromAPI: true, apiData: brazilStateData });
                 }).catch(error => console.log('error: ', error));
         }
