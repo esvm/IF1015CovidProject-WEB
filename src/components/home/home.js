@@ -31,7 +31,7 @@ export default class Home extends React.Component {
     return (
       <SocketManager>
         <div className={styles.home}>
-          <Header text="COVID_WATCHER" />
+          <Header text="Situação Nacional" />
           <div className={styles.home__content}>
             <BrazilPage />
           </div>

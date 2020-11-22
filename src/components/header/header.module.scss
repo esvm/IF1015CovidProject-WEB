@@ -1,6 +1,16 @@
 .header{
     background-color: #232F34;
     color: white;
-    width: 300px;
+    width: min-content;
     text-align: center;
+    padding: 0 10px;
+    text-align: left;
+
+    &__text{
+        margin-bottom: 2px;
+    }
+
+    &__subtext{
+        margin-top: 0;
+    }
 }

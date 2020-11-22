@@ -6,7 +6,7 @@ import Header from '../header/header';
 
 const Worldwide = () => (
   <div className={styles.worldwide}>
-    <Header text="WORLDWIDE"/>
+    <Header text="Situação Mundial"/>
   </div>
 );
 
