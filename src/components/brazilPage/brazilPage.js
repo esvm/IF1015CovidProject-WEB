@@ -1,11 +1,12 @@
 import React from 'react'
 import { SizeMe } from 'react-sizeme'
+import { MapBrazil } from 'react-brazil-map'
 
 import styles from './brazilPage.module.scss'
 
 import StateStats from '../stateStats/stateStats'
 import BrazilStats from '../brazilStats/brazilStats'
-import MapBrazil from '../brazilMap/brazilMap.tsx'
+
 
 export default class brazilPage extends React.Component {
     constructor(props) {

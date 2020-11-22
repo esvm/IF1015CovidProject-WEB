@@ -29,8 +29,8 @@
     "node": "12.16.3"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=falsereact-scripts --max_old_space_size=4096 start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts --max_old_space_size=4096 build",
+    "start": "react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "serve -s build"
