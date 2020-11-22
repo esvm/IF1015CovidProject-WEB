@@ -1,6 +1,6 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
-
+import { FaTimes } from 'react-icons/fa'
 import styles from './brazilStats.module.scss'
 
 
@@ -15,7 +15,7 @@ export default class BrazilStatsComponent extends React.Component {
         super(props);
     }
     render() {
-        const { selectedDate, data } = this.props
+        const { selectedDate, data, onChangeData, usingAPI, returnToContext } = this.props
 
         return (
             <div className={styles.brazilStats}>
@@ -30,11 +30,17 @@ export default class BrazilStatsComponent extends React.Component {
                                 type="date"
                                 className={styles.brazilStats__form__date}
                                 defaultValue={selectedDate}
-                                onChange={console.log}
+                                onChange={onChangeData}
                                 InputLabelProps={{
                                     shrink: true
                                 }}
                             />
+
+                            {usingAPI &&
+                                <button onClick={returnToContext}>
+                                    <FaTimes />
+                                </button>
+                            }
                         </form>
                     </div>)
                 }
