@@ -3,7 +3,9 @@ import TextField from '@material-ui/core/TextField'
 import { BsArrowLeft } from 'react-icons/bs'
 
 import styles from './stateStats.module.scss'
+import {FaTimes} from 'react-icons/fa'
 
+const INITIAL_DATE = '2020-02-01';
 
 const renderData = ({ cases, suspects, deaths }) =>
     <div className={styles.stateStats__data}>
@@ -15,12 +17,35 @@ const renderData = ({ cases, suspects, deaths }) =>
 export default class StateStatsComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selectedDate: '2020-02-01' };
+        this.state = { selectedDate: INITIAL_DATE };
     }
-    render() {
-        const { selectedDate } = this.state
-        const { data, returnToBrazil } = this.props
 
+    render() {
+        const { selectedDate, data: stateData, useDataFromAPI } = this.state
+        const { data: propsData, returnToBrazil } = this.props
+        const data = useDataFromAPI ? stateData : propsData
+
+        const fetchBrazilCasesByDate = (e) => {
+            var date = e.target.value;
+            this.setState({ selectedDate: date });
+            var currentBrazilState = this.props.data.state;
+
+            console.log(date);
+            const apiUrl = `https://if1015covidreports-api.herokuapp.com/reports/brazil/${date}`;
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((d) => {
+                    console.log(d);
+                    var brazilStateData = d.find(x => x.state === currentBrazilState);
+                    console.log(brazilStateData);
+                    this.setState({ useDataFromAPI: true, data: brazilStateData });
+                }).catch(error => console.log('error: ', error));
+        }
+
+        const closePickDate = () => {
+            this.setState({useDataFromAPI: false, selectedDate: INITIAL_DATE});
+        }
+        
         return (
             <div className={styles.stateStats}>
                 {!data ?
@@ -33,12 +58,19 @@ export default class StateStatsComponent extends React.Component {
                                 label="Dados a partir do dia:"
                                 type="date"
                                 className={styles.stateStats__form__date}
-                                defaultValue={selectedDate}
-                                onChange={console.log}
+                                //defaultValue={selectedDate}
+                                value={selectedDate}
+                                onChange={fetchBrazilCasesByDate}
                                 InputLabelProps={{
                                     shrink: true
                                 }}
                             />
+
+                            {useDataFromAPI &&
+                                <button onClick={closePickDate}> 
+                                    <FaTimes/>
+                                </button>
+                            }
                         </form>
                         <span className={styles.stateStats__return} onClick={returnToBrazil}>
                             <BsArrowLeft />
