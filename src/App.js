@@ -21,7 +21,7 @@ function App() {
               <About />
             </Route>
             <Route path="/worldwide">
-              <Worldwide />
+              <App />
             </Route>
             <Route path="/">
               <Home />
