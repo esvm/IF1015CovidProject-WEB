@@ -17,23 +17,24 @@ export default class BrazilPage extends React.Component {
         const { district } = this.state
 
         return (
-
-            <div className={styles.brazilPage}>
-                <div className={styles.brazilPage__map}>
-                    <SizeMe>
-                        {({ size }) =>
+            <SizeMe>
+                {({ size }) =>
+                    <div className={styles.brazilPage}>
+                        <div className={styles.brazilPage__map}>
                             <MapBrazil
-                                width={size.width}
+                                width={size.width/2}
+                                height={500}
                                 fill={district ? "#F9AA33" : "rgb(141, 141, 141)"}
                                 onChange={newDistrict => this.setState({ district: newDistrict })}
                             />
-                        }
-                    </SizeMe>
-                </div>
-                {this.state.district ?
-                    <StateStats district={district} returnToBrazil={() => this.setState({ district: '' })} /> :
-                    <BrazilStats />}
-            </div>
+
+                        </div>
+                        {this.state.district ?
+                            <StateStats district={district} returnToBrazil={() => this.setState({ district: '' })} /> :
+                            <BrazilStats />}
+                    </div>
+                }
+            </SizeMe>
         )
     }
 }

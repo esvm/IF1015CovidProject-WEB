@@ -1,11 +1,13 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import { BsArrowLeft } from 'react-icons/bs'
+import { FaTimes } from 'react-icons/fa'
 
 import styles from './stateStats.module.scss'
-import {FaTimes} from 'react-icons/fa'
 
-const INITIAL_DATE = '2020-02-01';
+import { addDays, formatDate } from '../../utils/dateUtils'
+
+const INITIAL_DATE = formatDate(addDays(new Date(), -7));
 
 const renderData = ({ cases, suspects, deaths }) =>
     <div className={styles.stateStats__data}>
@@ -31,10 +33,10 @@ export default class StateStatsComponent extends React.Component {
             var currentBrazilState = this.props.data.state;
 
             console.log(date);
-            const apiUrl = `https://if1015covidreports-api.herokuapp.com/reports/brazil/${date}`;
-            fetch(apiUrl)
+            const apiUrl = `https://if1015covidreports-api.herokuapp.com/reports/brazil/${date}`;
+            fetch(apiUrl)
                 .then((response) => response.json())
-                .then((d) => {
+                .then((d) => {
                     console.log(d);
                     var brazilStateData = d.find(x => x.state === currentBrazilState);
                     console.log(brazilStateData);
@@ -43,35 +45,39 @@ export default class StateStatsComponent extends React.Component {
         }
 
         const closePickDate = () => {
-            this.setState({useDataFromAPI: false, selectedDate: INITIAL_DATE});
+            this.setState({ useDataFromAPI: false, selectedDate: INITIAL_DATE });
         }
-        
+
+        const renderDatePicker = () =>
+            <form className={styles.stateStats__form}>
+                <TextField
+                    type="date"
+                    label="Dados coletados a partir de:"
+                    className={styles.stateStats__form__date}
+                    value={selectedDate}
+                    onChange={fetchBrazilCasesByDate}
+                    InputLabelProps={{
+                        shrink: true
+                    }}
+                />
+
+                {useDataFromAPI &&
+                    <button onClick={closePickDate}>
+                        <FaTimes />
+                    </button>
+                }
+            </form>
+
         return (
             <div className={styles.stateStats}>
                 {!data ?
                     (<span>Loading...</span>) :
                     (<div className={styles.stateStats__content}>
-                        <h2>{data.state}</h2>
+                        <div className={styles.stateStats__header}>
+                            <h2>{data.state}</h2>
+                        </div>
                         {renderData(data)}
-                        <form className={styles.stateStats__form}>
-                            <TextField
-                                label="Dados a partir do dia:"
-                                type="date"
-                                className={styles.stateStats__form__date}
-                                //defaultValue={selectedDate}
-                                value={selectedDate}
-                                onChange={fetchBrazilCasesByDate}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                            />
-
-                            {useDataFromAPI &&
-                                <button onClick={closePickDate}> 
-                                    <FaTimes/>
-                                </button>
-                            }
-                        </form>
+                        {renderDatePicker()}
                         <span className={styles.stateStats__return} onClick={returnToBrazil}>
                             <BsArrowLeft />
                             Voltar para informações do Brasil

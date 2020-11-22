@@ -1,25 +1,38 @@
 .brazilStats {
-  padding-left: 20px;
   color: white;
   height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 
-  h2 {
-    margin-top: 0 !important;
+  &__content{
+    width: 80%;
+  }
+
+  &__header{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+
+  &__return{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
 
   &__data {
     display: grid;
     grid-gap: 6px;
     grid-template-columns: 1fr 1fr;
-
-    :nth-child(even) {
-      text-align: end;
-    }
+    margin-bottom: 20px;
   }
 
   &__form {
-    margin-top: 12px;
-    width: 100%;
+    margin: 12px 0 20px;
 
     &__date {
       color: white;
@@ -39,7 +52,7 @@
       }
 
       label{
-        font-size: 16px;
+        font-size: 14px;
         white-space: nowrap;
         text-overflow: show;
       }
