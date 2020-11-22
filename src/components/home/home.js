@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './home.module.scss'
 
 import Header from '../header/header'
-import BrazilMap from '../brazilMap/brazilMap'
+import BrazilPage from '../brazilPage/brazilPage'
 import { SocketManager } from '../../contexts/generalContext'
 
 const CustomSwitch = withStyles({
@@ -33,16 +33,7 @@ export default class Home extends React.Component {
         <div className={styles.home}>
           <Header text="COVID_WATCHER" />
           <div className={styles.home__content}>
-            {this.state.mapView ? <BrazilMap /> : <span>eai</span>}
-          </div>
-          <div className={styles.home__footer}>
-            <CustomSwitch
-              onChange={
-                (event) =>
-                  this.setState({ mapView: event.target.checked })
-              }
-            />
-            <span>Ver situação por estado</span>
+            <BrazilPage />
           </div>
         </div>
       </SocketManager>
