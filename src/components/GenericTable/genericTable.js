@@ -52,7 +52,7 @@ function Table({
 
   return (
     <div className={styles.genericTable}>
-      <div className={styles.genericTable__switch}>
+      {changePagination && <div className={styles.genericTable__switch}>
         Paginação
         <CustomSwitch
           checked={pagination}
@@ -60,7 +60,7 @@ function Table({
             changePagination(event.target.checked);
           }}
         />
-      </div>
+      </div>}
       <div className={styles.genericTable__table}>
         <table {...getTableProps()}>
           <thead>
@@ -86,11 +86,11 @@ function Table({
                         sortedBy.isSortedAsc ? (
                           <AiOutlineUp />
                         ) : (
-                          <AiOutlineDown />
-                        )
+                            <AiOutlineDown />
+                          )
                       ) : (
-                        ''
-                      )}
+                          ''
+                        )}
                     </span>
                   </th>
                 ))}

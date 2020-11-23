@@ -2,25 +2,36 @@
   display: grid;
   height: 100vh;
   background-color: transparent;
+  color: white;
 
   grid-template-rows: min-content 1fr min-content;
 
-  &__content{
-      padding: 20px;
+  &__content {
+    padding: 20px;
+    height: 80vh;
   }
 
   &__footer {
-    color: white;
-    position: sticky;
-    left: 0;
-    bottom: 0;
-    width: 1/3;
-    background-color: #344955;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+    transition: ease;
+
+    &__inverse {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      transition: ease 1s;
+    }
+
+    &__content {
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+
+      span {
+        margin-right: 4px;
+      }
+    }
   }
 }
-
-

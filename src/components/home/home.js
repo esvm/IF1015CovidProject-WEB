@@ -1,19 +1,20 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react';
 
-import styles from './home.module.scss'
-
-import Header from '../header/header'
-import BrazilPage from '../brazilPage/brazilPage'
-import { SocketManager } from '../../contexts/generalContext'
+import HomeComponent from './home.component'
+import { SocketManager } from '../../contexts/generalContext';
 
 export class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { seeTable: false };
+  }
+
   render() {
     return (
       <SocketManager>
-        {renderHome()}
+        <HomeComponent />
       </SocketManager>
-    )
+    );
   }
 }
 
@@ -21,17 +22,8 @@ export class DemoHome extends React.Component {
   render() {
     return (
       <SocketManager useDemo={true}>
-        {renderHome()}
+        <HomeComponent />
       </SocketManager>
-    )
+    );
   }
 }
-function renderHome() {
-  return <div className={styles.home}>
-    <Header text="Situação Nacional" />
-    <div className={styles.home__content}>
-      <BrazilPage />
-    </div>
-  </div>
-}
-
