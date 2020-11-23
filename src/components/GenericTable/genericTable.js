@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import Switch from '@material-ui/core/Switch';
-import { useTable } from 'react-table';
+import { useTable, useBlockLayout } from 'react-table';
 import {
   AiOutlineDown,
   AiOutlineUp,
@@ -47,9 +47,7 @@ function Table({
   } = useTable({
     columns,
     data,
-    style: {
-      height: "400px"
-    }
+    useBlockLayout,
   });
 
   return (
@@ -63,53 +61,60 @@ function Table({
           }}
         />
       </div>
-
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  width={column.width}
-                  onClick={() =>
-                    changeSortedBy({
-                      accessor: column.accessor,
-                      isSortedAsc: !sortedBy.isSortedAsc,
-                    })
-                  }
-                  {...column.getHeaderProps()}
-                >
-                  {column.render('Header')}
-                  {/* Add a sort direction indicator */}
-                  {_.get(column, 'accessor') === sortedBy.accessor ? (
-                    sortedBy.isSortedAsc ? (
-                      <AiOutlineDown />
-                    ) : (
-                        <AiOutlineUp />
-                      )
-                  ) : (
-                      ''
-                    )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  );
-                })}
+      <div className={styles.genericTable__table}>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    width={column.width}
+                    onClick={() =>
+                      changeSortedBy({
+                        accessor: column.accessor,
+                        isSortedAsc: !sortedBy.isSortedAsc,
+                      })
+                    }
+                    {...column.getHeaderProps()}
+                  >
+                    <span>
+                      <span className={styles.genericTable__headerText}>
+                        {column.render('Header')}
+                      </span>
+                      {/* Add a sort direction indicator */}
+                      {_.get(column, 'accessor') === sortedBy.accessor ? (
+                        sortedBy.isSortedAsc ? (
+                          <AiOutlineUp />
+                        ) : (
+                          <AiOutlineDown />
+                        )
+                      ) : (
+                        ''
+                      )}
+                    </span>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>
+                        <span>{cell.render('Cell')}</span>
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {pagination && (
         <div className={styles.pagination}>
           <span>
