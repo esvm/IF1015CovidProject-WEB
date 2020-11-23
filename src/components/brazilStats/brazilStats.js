@@ -21,7 +21,6 @@ export default class BrazilStats extends React.Component {
             var date = e.target.value;
             this.setState({ selectedDate: date });
 
-            console.log(date);
             const apiUrl = `https://if1015covidreports-api.herokuapp.com/reports/brazil/${date}`;
             fetch(apiUrl)
                 .then((response) => response.json())

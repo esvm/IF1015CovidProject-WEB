@@ -19,8 +19,6 @@ const renderData = ({ cases, suspects, deaths }) =>
 export default class StateStatsComponent extends React.Component {
     render() {
         const { data, district, selectedDate, onChangeDate, usingAPI, returnToContext, returnToBrazil } = this.props;
-       
-        console.log({data})
 
         const renderDatePicker = () =>
             <form className={styles.stateStats__form}>
