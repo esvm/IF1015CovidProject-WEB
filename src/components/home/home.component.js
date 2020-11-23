@@ -1,5 +1,7 @@
 import React from 'react';
+import Switch from '@material-ui/core/Switch';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { withStyles } from '@material-ui/core/styles';
 
 import styles from './home.module.scss';
 
@@ -8,50 +10,80 @@ import StatesTable from '../statesTable/statesTable';
 import BrazilPage from '../brazilPage/brazilPage';
 import axios from 'axios';
 
+const CustomSwitch = withStyles({
+  switchBase: {
+    '&$checked': {
+      color: 'white',
+    },
+    '&$checked + $track': {
+      backgroundColor: 'white',
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
+
 export default class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { seeTable: false };
+    this.state = { seeTable: false, loading: false };
   }
 
   render() {
-    const { seeTable, isDemoRunning } = this.state;
+    const { seeTable, isDemoRunning, loading } = this.state;
     const { useDemo } = this.props;
 
     const startDemo = () => {
-      const apiUrl = 'https://if1015covidproject-producers.herokuapp.com/demo-start';
-      var date = '2020-04-27'
-      axios.post(apiUrl, null, {params: {date}})
-      .then(res => {
+      this.setState({ loading: true });
+
+      const apiUrl =
+        'https://if1015covidproject-producers.herokuapp.com/demo-start';
+      var date = '2020-04-27';
+      axios
+        .post(apiUrl, null, { params: { date } })
+        .then((res) => {
           console.log(res);
-          this.setState({isDemoRunning: true});
-      }).catch(e => {console.log('error: ', e)});
-    }
+          this.setState({ isDemoRunning: true, loading: false });
+        })
+        .catch((e) => {
+          console.log('error: ', e);
+        });
+    };
 
     const stopDemo = () => {
-      const apiUrl = 'https://if1015covidproject-producers.herokuapp.com/demo-stop';
-      axios.post(apiUrl)
-      .then(res => {
+      this.setState({ loading: true });
+
+      const apiUrl =
+        'https://if1015covidproject-producers.herokuapp.com/demo-stop';
+      axios
+        .post(apiUrl)
+        .then((res) => {
           console.log(res);
-          this.setState({isDemoRunning: false});
-      }).catch(e => {console.log('error: ', e)}); 
-    }
+          this.setState({ isDemoRunning: false, loading: false });
+        })
+        .catch((e) => {
+          console.log('error: ', e);
+        });
+    };
 
     return (
       <div className={styles.home}>
-        <Header text="Situação Nacional" />
+        <div className={styles.home__header}>
+          <Header text="Situação Nacional" />
+          <div hidden={!useDemo}>
+            Realtime
+            <CustomSwitch
+              checked={isDemoRunning}
+              disabled={loading}
+              onChange={(event) =>
+                event.target.checked ? startDemo() : stopDemo()
+              }
+            />
+          </div>
+        </div>
         <div className={styles.home__content}>
           {seeTable ? <StatesTable /> : <BrazilPage />}
           {this.renderFooter()}
-        </div>
-
-        <div hidden={!useDemo}>
-          <button onClick={startDemo} disabled={isDemoRunning}>
-            Start
-          </button>
-          <button onClick={stopDemo} disabled={!isDemoRunning}>
-            Stop
-          </button>
         </div>
       </div>
     );

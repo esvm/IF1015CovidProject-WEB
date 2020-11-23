@@ -6,6 +6,13 @@
 
   grid-template-rows: min-content 1fr min-content;
 
+  &__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__content {
     padding: 20px;
     height: 80vh;
