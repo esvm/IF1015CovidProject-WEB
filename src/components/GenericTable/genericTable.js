@@ -52,15 +52,17 @@ function Table({
 
   return (
     <div className={styles.genericTable}>
-      {changePagination && <div className={styles.genericTable__switch}>
-        Paginação
-        <CustomSwitch
-          checked={pagination}
-          onChange={(event) => {
-            changePagination(event.target.checked);
-          }}
-        />
-      </div>}
+      {changePagination && (
+        <div className={styles.genericTable__switch}>
+          Paginação
+          <CustomSwitch
+            checked={pagination}
+            onChange={(event) => {
+              changePagination(event.target.checked);
+            }}
+          />
+        </div>
+      )}
       <div className={styles.genericTable__table}>
         <table {...getTableProps()}>
           <thead>
@@ -86,11 +88,11 @@ function Table({
                         sortedBy.isSortedAsc ? (
                           <AiOutlineUp />
                         ) : (
-                            <AiOutlineDown />
-                          )
+                          <AiOutlineDown />
+                        )
                       ) : (
-                          ''
-                        )}
+                        ''
+                      )}
                     </span>
                   </th>
                 ))}
@@ -115,6 +117,11 @@ function Table({
           </tbody>
         </table>
       </div>
+      {_.isEmpty(data) && (
+        <div className={styles.noDataAlert}>
+          Essa tabela ainda não recebeu dados. Aguarde mais um pouco ;)
+        </div>
+      )}
       {pagination && (
         <div className={styles.pagination}>
           <span>
