@@ -124,11 +124,9 @@ function Table({
       )}
       {pagination && (
         <div className={styles.pagination}>
-          <span>
-            <strong>
-              {pageIndex + 1} de {pageCount}
-            </strong>
-          </span>
+          <strong>
+            Página {pageIndex + 1} de {pageCount}
+          </strong>
 
           <div className={styles.pagination__buttons}>
             <AiOutlineLeft
@@ -155,7 +153,7 @@ function GenericTable(props) {
     pagination,
     changePagination,
   } = props;
-
+  const pageCount = Math.ceil(givenData.length / PAGE_SIZE);
   const data = pagination
     ? givenData.slice(pageIndex * PAGE_SIZE, (pageIndex + 1) * PAGE_SIZE)
     : givenData;
@@ -170,7 +168,7 @@ function GenericTable(props) {
       pagination={pagination}
       changePagination={changePagination}
       changeSortedBy={changeSortedBy}
-      pageCount={Math.ceil(givenData.length / PAGE_SIZE)}
+      pageCount={pageCount}
     />
   );
 }

@@ -6,6 +6,11 @@
   align-items: center;
   color: antiquewhite;
   text-decoration: none; 
+  border-bottom: 1px solid antiquewhite;
+
+  &:last-child{
+    border-bottom: 0;
+  }
 
   &__icon {
     svg {

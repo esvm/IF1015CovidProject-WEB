@@ -21,12 +21,12 @@ const Sidebar = () => (
       <GiWorld />
     </SidebarItem>
 
-    <SidebarItem
+    {/* <SidebarItem
       title="Sobre"
       link="/about"
     >
       <GiInfo />
-    </SidebarItem>
+    </SidebarItem> */}
   </div>
 );
 
