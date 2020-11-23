@@ -26,7 +26,7 @@ export default class StateStatsComponent extends React.Component {
                     type="date"
                     label="Dados do dia:"
                     className={styles.stateStats__form__date}
-                    value={formatDate(new Date(_.get(data, "datetime")) || selectedDate)}
+                    value={usingAPI ? selectedDate : formatDate(new Date(_.get(data, "datetime")))}
                     onChange={onChangeDate}
                     InputLabelProps={{
                         shrink: true
