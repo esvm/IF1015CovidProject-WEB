@@ -7,24 +7,31 @@ import Header from '../header/header'
 import BrazilPage from '../brazilPage/brazilPage'
 import { SocketManager } from '../../contexts/generalContext'
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { mapView: false };
-  }
-
+export class Home extends React.Component {
   render() {
-    const { useDemo } = this.props
-
     return (
-      <SocketManager useDemo={useDemo}>
-        <div className={styles.home}>
-          <Header text="Situação Nacional" />
-          <div className={styles.home__content}>
-            <BrazilPage />
-          </div>
-        </div>
+      <SocketManager>
+        {renderHome()}
       </SocketManager>
     )
   }
 }
+
+export class DemoHome extends React.Component {
+  render() {
+    return (
+      <SocketManager useDemo={true}>
+        {renderHome()}
+      </SocketManager>
+    )
+  }
+}
+function renderHome() {
+  return <div className={styles.home}>
+    <Header text="Situação Nacional" />
+    <div className={styles.home__content}>
+      <BrazilPage />
+    </div>
+  </div>
+}
+

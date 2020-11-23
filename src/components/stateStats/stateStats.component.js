@@ -45,7 +45,7 @@ export default class StateStatsComponent extends React.Component {
                         <h2>{_.find(districts, ({ uf }) => uf === district).nome}</h2>
                     </div>
                     {!data ?
-                        (<span>Não temos dados desse dia em nosso banco :(</span>) :
+                        (<span>Ainda não temos dados desse dia :(</span>) :
                         renderData(data)
                     }
                     {renderDatePicker()}

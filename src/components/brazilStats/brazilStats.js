@@ -14,8 +14,7 @@ export default class BrazilStats extends React.Component {
         this.state = { selectedDate: INITIAL_DATE };
     }
     render() {
-        const { district } = this.props
-        const { useDataFromAPI, apiData } = this.state
+        const { useDataFromAPI, apiData, noData } = this.state
 
         const fetchBrazilCasesByDate = (e) => {
             var date = e.target.value;
@@ -31,6 +30,8 @@ export default class BrazilStats extends React.Component {
                         deaths: 0,
                         suspects: 0
                     }
+                    if(_.isEmpty(d)) this.setState({noData: true})
+
                     _.forEach(d.filter(x => x.datetime.split('T')[0] === date), (s) => {
                         brasilCasesInDate.confirmed += s.cases;
                         brasilCasesInDate.deaths += s.deaths;
@@ -49,6 +50,7 @@ export default class BrazilStats extends React.Component {
                 {({ countries }) =>
                     <BrazilStatsComponent 
                         data={useDataFromAPI ? apiData : countries.get("Brazil")} 
+                        noData={noData}
                         selectedDate={this.state.selectedDate} 
                         onChangeData={fetchBrazilCasesByDate}
                         usingAPI={useDataFromAPI}

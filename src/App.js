@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import About from "./components/about/about";
-import Home from "./components/home/home";
+import {Home, DemoHome} from "./components/home/home";
 import Sidebar from "./components/sidebar/sidebar"
 import Worldwide from "./components/worldwide/worldwide";
 
@@ -24,7 +24,7 @@ function App() {
               <Worldwide />
             </Route>
             <Route path="/demo">
-              <Home useDemo={true} />
+              <DemoHome />
             </Route>
             <Route path="/">
               <Home />
