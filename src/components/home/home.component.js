@@ -6,6 +6,7 @@ import styles from './home.module.scss';
 import Header from '../header/header';
 import StatesTable from '../statesTable/statesTable';
 import BrazilPage from '../brazilPage/brazilPage';
+import axios from 'axios';
 
 export default class HomeComponent extends React.Component {
   constructor(props) {
@@ -14,7 +15,29 @@ export default class HomeComponent extends React.Component {
   }
 
   render() {
-    const { seeTable } = this.state;
+    const { seeTable, isDemoRunning } = this.state;
+    const { useDemo } = this.props;
+
+    const startDemo = () => {
+      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+      const apiUrl = 'http://if1015covidproject-producers.herokuapp.com/demo-start';
+      var date = '?date=2020-04-27'
+      axios.post(apiUrl, date)
+      .then(res => {
+          console.log(res);
+          this.setState({isDemoRunning: true});
+      }).catch(e => {console.log('error: ', e)});
+    }
+
+    const stopDemo = () => {
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      const apiUrl = 'http://if1015covidproject-producers.herokuapp.com/demo-stop';
+      axios.post(apiUrl)
+      .then(res => {
+          console.log(res);
+          this.setState({isDemoRunning: false});
+      }).catch(e => {console.log('error: ', e)}); 
+    }
 
     return (
       <div className={styles.home}>
@@ -22,6 +45,15 @@ export default class HomeComponent extends React.Component {
         <div className={styles.home__content}>
           {seeTable ? <StatesTable /> : <BrazilPage />}
           {this.renderFooter()}
+        </div>
+
+        <div hidden={!useDemo}>
+          <button onClick={startDemo}>
+            Start
+          </button>
+          <button onClick={stopDemo}>
+            Stop
+          </button>
         </div>
       </div>
     );

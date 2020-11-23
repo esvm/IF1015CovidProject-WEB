@@ -22,7 +22,7 @@ export class DemoHome extends React.Component {
   render() {
     return (
       <SocketManager useDemo={true}>
-        <HomeComponent />
+        <HomeComponent useDemo={true}/>
       </SocketManager>
     );
   }
