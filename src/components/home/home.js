@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 import styles from './home.module.scss'
 
@@ -13,8 +14,10 @@ export default class Home extends React.Component {
   }
 
   render() {
+    const { useDemo } = this.props
+
     return (
-      <SocketManager>
+      <SocketManager useDemo={useDemo}>
         <div className={styles.home}>
           <Header text="Situação Nacional" />
           <div className={styles.home__content}>

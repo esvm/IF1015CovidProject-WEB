@@ -23,6 +23,9 @@ function App() {
             <Route path="/worldwide">
               <Worldwide />
             </Route>
+            <Route path="/demo">
+              <Home useDemo={true} />
+            </Route>
             <Route path="/">
               <Home />
             </Route>
