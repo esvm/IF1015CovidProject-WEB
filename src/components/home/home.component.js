@@ -46,10 +46,10 @@ export default class HomeComponent extends React.Component {
         </div>
 
         <div hidden={!useDemo}>
-          <button onClick={startDemo}>
+          <button onClick={startDemo} disabled={isDemoRunning}>
             Start
           </button>
-          <button onClick={stopDemo}>
+          <button onClick={stopDemo} disabled={!isDemoRunning}>
             Stop
           </button>
         </div>
