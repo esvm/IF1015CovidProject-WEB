@@ -1,10 +1,12 @@
 .worldwide {
     display: flex;
     flex-direction: column;
+    height: 100vh;
 
     &__content{
         display: flex;
         flex-direction: column;
         align-items: center;
+        height: 80vh;
     }
 }
