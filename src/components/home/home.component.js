@@ -19,7 +19,7 @@ export default class HomeComponent extends React.Component {
     const { useDemo } = this.props;
 
     const startDemo = () => {
-      const apiUrl = 'http://if1015covidproject-producers.herokuapp.com/demo-start';
+      const apiUrl = 'https://if1015covidproject-producers.herokuapp.com/demo-start';
       var date = '2020-04-27'
       axios.post(apiUrl, null, {params: {date}})
       .then(res => {
@@ -29,7 +29,7 @@ export default class HomeComponent extends React.Component {
     }
 
     const stopDemo = () => {
-      const apiUrl = 'http://if1015covidproject-producers.herokuapp.com/demo-stop';
+      const apiUrl = 'https://if1015covidproject-producers.herokuapp.com/demo-stop';
       axios.post(apiUrl)
       .then(res => {
           console.log(res);
