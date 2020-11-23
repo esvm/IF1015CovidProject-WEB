@@ -9,6 +9,9 @@
   &__content {
     padding: 20px;
     height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr min-content;
   }
 
   &__footer {
