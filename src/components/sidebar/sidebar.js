@@ -1,5 +1,5 @@
 import React from 'react';
-import { GiBrazil, GiInfo, GiWorld } from 'react-icons/gi';
+import { GiBrazil, /*GiInfo,*/ GiWorld } from 'react-icons/gi';
 
 
 import SidebarItem from "./sidebarItem/sidebarItem";

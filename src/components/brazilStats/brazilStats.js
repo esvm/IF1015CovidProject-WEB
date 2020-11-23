@@ -3,7 +3,7 @@ import React from 'react'
 import BrazilStatsComponent from './brazilStats.component'
 
 import { SocketContext } from '../../contexts/generalContext'
-import { addDays, formatDate } from '../../utils/dateUtils'
+import { formatDate } from '../../utils/dateUtils'
 import _ from 'lodash'
 
 const INITIAL_DATE = formatDate(new Date());

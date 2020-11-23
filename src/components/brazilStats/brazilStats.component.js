@@ -13,9 +13,6 @@ const renderData = ({ confirmed, suspects, deaths }) =>
     </div>
 
 export default class BrazilStatsComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         const { selectedDate, data, onChangeData, usingAPI, returnToContext, noData } = this.props
 
