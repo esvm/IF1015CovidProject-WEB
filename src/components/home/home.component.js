@@ -19,10 +19,9 @@ export default class HomeComponent extends React.Component {
     const { useDemo } = this.props;
 
     const startDemo = () => {
-      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
       const apiUrl = 'http://if1015covidproject-producers.herokuapp.com/demo-start';
-      var date = '?date=2020-04-27'
-      axios.post(apiUrl, date)
+      var date = '2020-04-27'
+      axios.post(apiUrl, null, {params: {date}})
       .then(res => {
           console.log(res);
           this.setState({isDemoRunning: true});
@@ -30,7 +29,6 @@ export default class HomeComponent extends React.Component {
     }
 
     const stopDemo = () => {
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
       const apiUrl = 'http://if1015covidproject-producers.herokuapp.com/demo-stop';
       axios.post(apiUrl)
       .then(res => {

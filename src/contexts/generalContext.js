@@ -39,7 +39,6 @@ export class WrappedSocketManager extends React.Component {
       this.setState({useDemo: useDemo});
       
       if (this.state.statesData !== statesData) {
-        console.log(data);
         const states = new Map();
 
         _.forEach(statesData, item => states.set(item.uf, item));
